@@ -3,7 +3,6 @@ fun main() {
     val digits = listOf("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine")
     val isDigitOrSpelled = digits.joinToString(separator = "|") { it } + "|\\d"
     val isDigitOrSpelledRegex = isDigitOrSpelled.toRegex()
-    val temp = "$isDigitOrSpelled".toRegex()
 
     fun part1(input: List<String>): Int =
             input.fold(0) { acc, line ->
@@ -32,7 +31,7 @@ fun main() {
 
     fun part2b(input: List<String>): Int =
             input.fold(0) { acc, line ->
-                acc + temp.findAllWithOverlap(line).let {
+                acc + isDigitOrSpelledRegex.findAllWithOverlap(line).let {
                     (it.first().value.getDigit() + it.last().value.getDigit()).toInt().also { println("3: $it") }
                 }
             }
